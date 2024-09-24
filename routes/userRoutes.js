@@ -42,7 +42,7 @@ router.post('/recognize', async (req, res) => {
     // Convertir el descriptor a un array para que pueda ser enviado como JSON
     const faceEmbedding = Array.from(faceDescriptor);
 
-    console.log('Embedding facial:', faceEmbedding);
+    //console.log('Embedding facial:', faceEmbedding);
 
     // Comparar el embedding facial con la base de datos
     const threshold = 0.5;  // Ajusta según tus necesidades
@@ -51,7 +51,7 @@ router.post('/recognize', async (req, res) => {
     let userFound = false;
 
     for (const user of users) {
-        console.log(user, "USERRRRRRRR")
+        //console.log(user, "USERRRRRRRR")
       if (user.embedding_facial.length === 0) continue; // Omite usuarios sin embedding
 
       const distance = calculateEuclideanDistance(faceEmbedding, user.embedding_facial);
@@ -120,7 +120,7 @@ router.post('/ask', async (req, res) => {
   
       const prompt = `Información de la persona: ${userInfo.name} ${userInfo.lastname}. ${userInfo.description}. Responde a la siguiente pregunta: ${question}`;
   
-      const apiKey = 'AIzaSyDpnLxxlCgcaltHSI1nPNi9IfF1Qg2806s'; // Asegúrate de mantener segura esta clave
+      const apiKey = process.env.REACT_APP_API_KEY;
       const endpointUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${apiKey}`;
   
       // Enviar el prompt a la IA
